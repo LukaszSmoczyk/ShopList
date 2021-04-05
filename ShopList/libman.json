@@ -92,6 +92,58 @@
         "sprites/regular.svg",
         "sprites/solid.svg"
       ]
+    },
+    {
+      "library": "lightbox2@2.11.3",
+      "destination": "wwwroot/lib/lightbox2/",
+      "files": [
+        ".editorconfig",
+        ".jscsrc",
+        ".jshintrc",
+        "bower.json",
+        "DEPLOY.md",
+        "Gruntfile.js",
+        "LICENSE",
+        "package.json",
+        "README.md",
+        "ROADMAP.md",
+        ".github/ISSUE_TEMPLATE.md",
+        ".github/PULL_REQUEST_TEMPLATE.md",
+        "dist/css/lightbox.css",
+        "dist/css/lightbox.min.css",
+        "dist/images/close.png",
+        "dist/images/loading.gif",
+        "dist/images/next.png",
+        "dist/images/prev.png",
+        "dist/js/lightbox-plus-jquery.js",
+        "dist/js/lightbox-plus-jquery.min.js",
+        "dist/js/lightbox-plus-jquery.min.map",
+        "dist/js/lightbox.js",
+        "dist/js/lightbox.min.js",
+        "dist/js/lightbox.min.map",
+        "examples/index.html",
+        "src/css/lightbox.css",
+        "src/images/close.png",
+        "src/images/loading.gif",
+        "src/images/next.png",
+        "src/images/prev.png",
+        "src/js/lightbox.js"
+      ]
     }
-  ]
+  ,
+{
+  "library": "nouislider@14.6.4",
+  "destination": "wwwroot/lib/nouislider/"
+}
+,
+{
+  "library": "owl.carousel2@2.2.1",
+  "destination": "wwwroot/lib/owl.carousel2/"
+}
+,
+{
+  "library": "bootstrap-select@1.13.18",
+  "destination": "wwwroot/lib/bootstrap-select/"
+}
+]
 }
