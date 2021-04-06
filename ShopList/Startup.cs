@@ -24,7 +24,12 @@ namespace ShopList
             {
                 app.UseDeveloperExceptionPage();
             }
+            else
+            {
+                app.UseExceptionHandler("/error");
+            }
 
+            app.UseStaticFiles();
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
@@ -33,6 +38,8 @@ namespace ShopList
                     name: "default",
                     pattern: "{controller=App}/{action=Index}/{id?}");
             });
+
+            
 
 
         }
