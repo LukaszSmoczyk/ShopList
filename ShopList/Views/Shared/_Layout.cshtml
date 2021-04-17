@@ -23,8 +23,14 @@
                     <li class="nav-item">
                         <a class="nav-link" asp-controller="App" asp-action="About">About</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-controller="App" asp-action="Shop">Shop</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Lists</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" asp-controller="App" asp-action="List">Your lists</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" asp-controller="App" asp-action="List">Create new list</a>
+                            <a class="dropdown-item" asp-controller="App" asp-action="List">Edit your lists</a>
+                        </div>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" asp-controller="App" asp-action="Contact">Contact</a>
