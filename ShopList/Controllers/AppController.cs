@@ -1,9 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ShopList.Data;
 
 namespace ShopList.Controllers
 {
     public class AppController : Controller
     {
+        private readonly IShopListRepository _repository;
+
+        public AppController(IShopListRepository repository)
+        {
+            _repository = repository;
+        }
         public IActionResult Index()
         {
             return View();
@@ -15,6 +22,12 @@ namespace ShopList.Controllers
         public IActionResult Contact()
         {
             return View();
+        }
+
+        public IActionResult List()
+        {
+            var results = _repository.GetAllProducts();
+            return View(results);
         }
     }
 }
