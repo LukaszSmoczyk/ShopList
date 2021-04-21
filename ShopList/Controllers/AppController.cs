@@ -24,10 +24,9 @@ namespace ShopList.Controllers
             return View();
         }
 
-        public IActionResult List()
+        public IActionResult Lists()
         {
-            var results = _repository.GetAllProducts();
-            return View(results);
+            return View();
         }
     }
 }

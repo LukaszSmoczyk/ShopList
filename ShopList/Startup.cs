@@ -5,6 +5,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
 using ShopList.Data;
+using System.Reflection;
 
 namespace ShopList
 {
@@ -22,7 +23,8 @@ namespace ShopList
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ShopListDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-           
+
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
             services.AddScoped<IShopListRepository, ShopListRepository>();
 
