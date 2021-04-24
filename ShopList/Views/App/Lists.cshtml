@@ -1,20 +1,31 @@
-﻿@model IEnumerable<Product>
+﻿@model IEnumerable<List>
 
-<h1>List of items to buy</h1>
-<p>Count: @Model.Count()</p>
-<div class="row">
-    @foreach (var p in Model)
+<div class="container">
+    <h2>Your lists:</h2>
+    <p>The .table-condensed class makes a table more compact by cutting cell padding in half:</p>
+    
+    <div class="card">
+        <div class="card-header">
+            Create a new list
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Special title treatment</h5>
+            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+    </div>
+    @if (Model != null)
     {
-        <div class="col-md-3">
-            <div class="border bg-light rounded p-1">
-                <ul>
-                    <li>Title: $@p.Title</li>
-                    <li>Title: @p.Title</li>
-                    <li>Quantity: @p.Quantity</li>
-                    <li>Added: @p.DateOfAddingItem</li>
-                </ul>
-                <button id="buyButton" class="btn btn-success">Buy</button>
+    foreach (var list in Model)
+    {
+        <div class="card col-md-3" style="width: 18rem;">
+            <div class="card-img-top" src="~/images/kot1.jpeg" alt="Card image cap">
+                <h5 class="card-title">@list.ListName</h5>
+                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
             </div>
         </div>
     }
+    }
+
 </div>

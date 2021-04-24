@@ -1,0 +1,19 @@
+﻿@model IEnumerable<Product>
+
+<h1>List of items to buy</h1>
+<p>Count: @Model.Count()</p>
+<div class="row">
+    @foreach (var p in Model)
+    {
+        <div class="col-md-3">
+            <div class="border bg-light rounded p-1">
+                <ul>
+                    <li>Title: $@p.ProductName</li>
+                    <li>Quantity: @p.Quantity</li>
+                    <li>Added: @p.DateOfAddingItem</li>
+                </ul>
+                <button id="buyButton" class="btn btn-success">Buy</button>
+            </div>
+        </div>
+    }
+</div>

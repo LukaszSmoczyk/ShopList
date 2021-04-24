@@ -9,6 +9,7 @@ namespace ShopList.Data
     public interface IShopListRepository
     {
         IEnumerable<Product> GetAllProducts();
+        IEnumerable<List> GetAllLists();
         bool SaveAll();
     }
 }

@@ -8,9 +8,9 @@ namespace ShopList.Data.Entities
     public class Product
     {
         public int Id { get; set; }
-        public string Title { get; set; }
+        public string ProductName { get; set; }
         public string Quantity { get; set; }
         public DateTime DateOfAddingItem { get; set; }
-        public AppUser User { get; set; }
+        public AppUser User { get; }
     }
 }

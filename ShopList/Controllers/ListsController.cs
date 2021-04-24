@@ -38,5 +38,22 @@ namespace ShopList.Controllers
                 return BadRequest("Failed to get products");
             }
         }
+
+        [HttpGet]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        public ActionResult<IEnumerable<List>> Get()
+        {
+            try
+            {
+                return Ok(_repository.GetAllLists());
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Failed to get lists: {ex}");
+                return BadRequest("Failed to get lists");
+            }
+
+        }
     }
 }

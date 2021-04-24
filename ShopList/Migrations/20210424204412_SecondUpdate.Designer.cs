@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ShopList.Data;
 
 namespace ShopList.Migrations
 {
     [DbContext(typeof(ShopListDbContext))]
-    partial class ShopListDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210424204412_SecondUpdate")]
+    partial class SecondUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -89,6 +91,9 @@ namespace ShopList.Migrations
 
                     b.Property<DateTime>("DateOfAddingItem")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Quantity")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");

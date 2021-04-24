@@ -10,7 +10,7 @@ using ShopList.Data;
 namespace ShopList.Migrations
 {
     [DbContext(typeof(ShopListDbContext))]
-    [Migration("20210418195627_InitialCreate")]
+    [Migration("20210424203522_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -91,6 +91,9 @@ namespace ShopList.Migrations
 
                     b.Property<DateTime>("DateOfAddingItem")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Quantity")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
