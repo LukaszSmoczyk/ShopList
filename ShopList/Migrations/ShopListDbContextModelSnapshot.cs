@@ -19,6 +19,32 @@ namespace ShopList.Migrations
                 .HasAnnotation("ProductVersion", "5.0.5")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("ShopList.Data.Entities.Item", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("DateOfAddingItem")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ItemName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ListId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Quantity")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ListId");
+
+                    b.ToTable("Items");
+                });
+
             modelBuilder.Entity("ShopList.Data.Entities.List", b =>
                 {
                     b.Property<int>("Id")
@@ -37,42 +63,16 @@ namespace ShopList.Migrations
                     b.ToTable("Lists");
                 });
 
-            modelBuilder.Entity("ShopList.Data.Entities.Product", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("DateOfAddingItem")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("ListId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ProductName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Quantity")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ListId");
-
-                    b.ToTable("Products");
-                });
-
-            modelBuilder.Entity("ShopList.Data.Entities.Product", b =>
+            modelBuilder.Entity("ShopList.Data.Entities.Item", b =>
                 {
                     b.HasOne("ShopList.Data.Entities.List", null)
-                        .WithMany("Products")
+                        .WithMany("Items")
                         .HasForeignKey("ListId");
                 });
 
             modelBuilder.Entity("ShopList.Data.Entities.List", b =>
                 {
-                    b.Navigation("Products");
+                    b.Navigation("Items");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,0 +1,41 @@
+﻿@model IEnumerable<List>
+
+<div class="container">
+    <h2>Your lists:</h2>
+    <p>The .table-condensed class makes a table more compact by cutting cell padding in half:</p>
+
+    <div class="row">
+
+        @if (Model != null)
+        {
+            foreach (var list in Model)
+            {
+                <div class="card col-sm-6">
+                    <div class="card-img-top" src="~/images/kot1.jpeg" alt="Card image cap">
+                        <h5 class="card-title">@list.ListName</h5>
+                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+            }
+        }
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Create a new list</h5>
+                    <p class="card-text">Create a new shopping list and share it with your friends and family.</p>
+                    <a class="btn btn-primary" asp-controller="Lists" asp-action="CreateList">Create</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Learn more</h5>
+                    <p class="card-text">Check here for more information.</p>
+                    <a class="btn btn-primary" asp-controller="App" asp-action="About">Check</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

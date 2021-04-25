@@ -53,6 +53,7 @@ namespace ShopList
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=App}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
             });
 
             

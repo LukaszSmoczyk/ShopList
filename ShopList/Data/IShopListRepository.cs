@@ -8,8 +8,9 @@ namespace ShopList.Data
 {
     public interface IShopListRepository
     {
-        IEnumerable<Product> GetAllProducts();
+        IEnumerable<Item> GetAllItems();
         IEnumerable<List> GetAllLists();
+        void AddEntity(object model);
         bool SaveAll();
     }
 }

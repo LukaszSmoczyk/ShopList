@@ -13,8 +13,12 @@ namespace ShopList.Data
     {
         public ShopListMappingProfile()
         {
-            CreateMap<Product, ProductViewModel>()
+            CreateMap<Item, ItemViewModel>()
                 .ForMember(p => p.Id, ex => ex.MapFrom(p => p.Id))
+                .ReverseMap();
+
+            CreateMap<List, ListViewModel>()
+                .ForMember(o => o.Id, ex => ex.MapFrom(o => o.Id))
                 .ReverseMap();
 
         }

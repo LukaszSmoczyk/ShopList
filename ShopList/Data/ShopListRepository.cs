@@ -35,14 +35,14 @@ namespace ShopList.Data
             }
         }
 
-        public IEnumerable<Product> GetAllProducts()
+        public IEnumerable<Item> GetAllItems()
         {
             try
             {
-                _logger.LogInformation("GetAllProducts was called");
+                _logger.LogInformation("GetAllItems was called");
 
-                return _context.Products
-                    .OrderBy(p => p.ProductName)
+                return _context.Items
+                    .OrderBy(p => p.ItemName)
                     .ToList();
             }
             catch (Exception ex)
@@ -55,6 +55,11 @@ namespace ShopList.Data
         public bool SaveAll()
         {
             return _context.SaveChanges() > 0;
+        }
+
+        public void AddEntity(object model)
+        {
+            _context.Add(model);
         }
     }
 }

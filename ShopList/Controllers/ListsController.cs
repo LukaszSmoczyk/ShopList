@@ -24,22 +24,13 @@ namespace ShopList.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet]
-        public IActionResult GetAllProducts()
+        public IActionResult List()
         {
-            try
-            {
-                var results = _repository.GetAllProducts();
-                return Ok(_mapper.Map<IEnumerable<Product>, IEnumerable<ProductViewModel>>(results));
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Failed to get products: {ex}");
-                return BadRequest("Failed to get products");
-            }
+            var results = _repository.GetAllLists();
+            return View(results);
         }
 
-        [HttpGet]
+/*        [HttpGet]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         public ActionResult<IEnumerable<List>> Get()
@@ -53,7 +44,41 @@ namespace ShopList.Controllers
                 _logger.LogError($"Failed to get lists: {ex}");
                 return BadRequest("Failed to get lists");
             }
+        }*/
 
+
+        [HttpPost]
+        public IActionResult CreateList([FromBody] ListViewModel model)
+        {
+            //add it to the db
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var newList = _mapper.Map<ListViewModel, List>(model);
+
+                    if (newList.CreationDate == DateTime.MinValue)
+                    {
+                        newList.CreationDate = DateTime.Now;
+                    }
+
+                    _repository.AddEntity(newList);
+                    if (_repository.SaveAll())
+                    {
+                        return Created($"/App/Lists/{newList.Id}", _mapper.Map<List, ListViewModel>(newList));
+                    }
+                    else
+                    {
+                        return BadRequest(ModelState);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Failed to save a new list: {ex}");
+            }
+
+            return BadRequest("Failed to save new list");
         }
     }
 }

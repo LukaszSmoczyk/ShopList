@@ -3,6 +3,7 @@ using ShopList.Data;
 
 namespace ShopList.Controllers
 {
+
     public class AppController : Controller
     {
         private readonly IShopListRepository _repository;
@@ -15,10 +16,14 @@ namespace ShopList.Controllers
         {
             return View();
         }
+
+        [HttpGet("about")]
         public IActionResult About()
         {
             return View();
         }
+
+        [HttpGet("contact")]
         public IActionResult Contact()
         {
             return View();
@@ -26,7 +31,7 @@ namespace ShopList.Controllers
 
         public IActionResult Lists()
         {
-            return View();
+            return RedirectToAction("List", "Lists");
         }
     }
 }
