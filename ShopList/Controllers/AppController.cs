@@ -29,9 +29,9 @@ namespace ShopList.Controllers
             return View();
         }
 
-        public IActionResult Lists()
+        public IActionResult AllLists()
         {
-            return RedirectToAction("List", "Lists");
+            return RedirectToAction("AllLists", "Lists");
         }
     }
 }

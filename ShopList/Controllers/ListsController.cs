@@ -17,6 +17,8 @@ namespace ShopList.Controllers
         public readonly IShopListRepository _repository;
         public readonly ILogger<ListsController> _logger;
         public readonly IMapper _mapper;
+        private readonly Random _random;
+
         public ListsController(IShopListRepository repository, ILogger<ListsController> logger, IMapper mapper)
         {
             _repository = repository;
@@ -24,61 +26,34 @@ namespace ShopList.Controllers
             _mapper = mapper;
         }
 
-        public IActionResult List()
+        [HttpGet]
+        public IActionResult AllLists()
         {
             var results = _repository.GetAllLists();
             return View(results);
         }
 
-/*        [HttpGet]
-        [ProducesResponseType(200)]
-        [ProducesResponseType(400)]
-        public ActionResult<IEnumerable<List>> Get()
+        [HttpGet("{id:int}")]
+        public IActionResult Get(int id)
         {
             try
             {
-                return Ok(_repository.GetAllLists());
+                var list = _repository.GetListById(id);
+                if (list != null) return Ok(_mapper.Map<ListViewModel>(list));
+                else return NotFound();
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Failed to get lists: {ex}");
-                return BadRequest("Failed to get lists");
+                _logger.LogError($"Failed to return list: {ex}");
+                return BadRequest($"Failed to return list");
             }
-        }*/
+        }
 
 
-        [HttpPost]
-        public IActionResult CreateList([FromBody] ListViewModel model)
+        [HttpGet("add")]
+        public IActionResult CreateList()
         {
-            //add it to the db
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    var newList = _mapper.Map<ListViewModel, List>(model);
-
-                    if (newList.CreationDate == DateTime.MinValue)
-                    {
-                        newList.CreationDate = DateTime.Now;
-                    }
-
-                    _repository.AddEntity(newList);
-                    if (_repository.SaveAll())
-                    {
-                        return Created($"/App/Lists/{newList.Id}", _mapper.Map<List, ListViewModel>(newList));
-                    }
-                    else
-                    {
-                        return BadRequest(ModelState);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Failed to save a new list: {ex}");
-            }
-
-            return BadRequest("Failed to save new list");
+            return View();
         }
     }
 }

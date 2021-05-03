@@ -12,5 +12,6 @@ namespace ShopList.Data
         IEnumerable<List> GetAllLists();
         void AddEntity(object model);
         bool SaveAll();
+        List GetListById(int id);
     }
 }

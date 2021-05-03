@@ -61,5 +61,12 @@ namespace ShopList.Data
         {
             _context.Add(model);
         }
+
+        public List GetListById(int id)
+        {
+            return _context.Lists
+                .Where(o => o.Id == id)
+                .FirstOrDefault();
+        }
     }
 }
