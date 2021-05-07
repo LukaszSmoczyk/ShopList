@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace ShopList.Controllers
 {
-    [Route("api/[Controller]")]
+    [Route("[Controller]")]
     public class ListsController : Controller
     {
         public readonly IShopListRepository _repository;
@@ -27,14 +27,14 @@ namespace ShopList.Controllers
         }
 
         [HttpGet]
-        public IActionResult AllLists()
+        public IActionResult Index()
         {
             var results = _repository.GetAllLists();
             return View(results);
         }
 
         [HttpGet("{id:int}")]
-        public IActionResult Get(int id)
+        public IActionResult Details(int id)
         {
             try
             {
@@ -49,11 +49,38 @@ namespace ShopList.Controllers
             }
         }
 
-
-        [HttpGet("add")]
-        public IActionResult CreateList()
+        public IActionResult Create()
         {
             return View();
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> Create([FromBody]ListViewModel model)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var newList = _mapper.Map<List>(model);
+
+                    newList.CreationDate = DateTime.Now;
+                    _repository.AddEntity(newList);
+                    _repository.SaveAll();
+
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    return BadRequest(ModelState);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Failed to save new list: {ex}");
+            }
+
+            return View(model);
         }
     }
 }

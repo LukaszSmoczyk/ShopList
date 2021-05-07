@@ -71,5 +71,10 @@
         "webfonts/fa-solid-900.woff2"
       ]
     }
-  ]
+  ,
+{
+  "library": "jquery-validation@1.19.3",
+  "destination": "wwwroot/lib/jquery-validation/"
+}
+]
 }

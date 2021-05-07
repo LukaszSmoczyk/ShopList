@@ -31,7 +31,7 @@ namespace ShopList.Controllers
 
         public IActionResult AllLists()
         {
-            return RedirectToAction("AllLists", "Lists");
+            return RedirectToAction("Index", "Lists");
         }
     }
 }
