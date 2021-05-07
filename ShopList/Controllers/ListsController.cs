@@ -28,10 +28,10 @@ namespace ShopList.Controllers
 
         // Get /Lists
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var results = _repository.GetAllLists();
-            return View(results);
+            var results = _repository.GetAll();
+            return View(await results);
         }
 
         [HttpGet("{id:int}")]
@@ -58,15 +58,15 @@ namespace ShopList.Controllers
 
 
         [HttpPost]
-        public IActionResult Create(List model)
+        public async Task<IActionResult> Create([Bind("ListName")]List model)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    _repository.AddEntity(model);
-                    _repository.SaveAll();
-                    return RedirectToAction(nameof(Index));
+                     await _repository.Add(model);
+                     await _repository.SaveAsync();
+                    return  RedirectToAction(nameof(Index));
                 }
                 else
                 {
@@ -81,37 +81,5 @@ namespace ShopList.Controllers
             return View(model);
         
         }
-
-
-
-
-/*            try
-            {
-                if (ModelState.IsValid)
-                {
-                    var newList = _mapper.Map<List>(model);
-
-                    if (newList.CreationDate == DateTime.MinValue)
-                    {
-                        newList.CreationDate = DateTime.Now;
-                    };
-
-                    _repository.AddEntity(newList);
-                    _repository.SaveAll();
-
-                    return Created($"/Lists/Details/{newList.Id}", _mapper.Map<ListViewModel>(newList));
-                }
-                else
-                {
-                    return BadRequest(ModelState);
-                }
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Failed to save new list: {ex}");
-            }
-
-            return View("Details", "Lists");*/
-        
     }
 }

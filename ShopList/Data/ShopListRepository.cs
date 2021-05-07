@@ -20,18 +20,18 @@ namespace ShopList.Data
             _logger = logger;
         }
 
-        public async Task<IEnumerable<object>> GetAll()
+        public async Task<IEnumerable<List>> GetAll()
         {
-            return await _context.Set<object>().ToListAsync();
+            return await _context.Set<List>().ToListAsync();
         }
         public async Task SaveAsync()
         {
             await _context.SaveChangesAsync();
         }
 
-        public async Task Add(object model)
+        public async Task Add(List model)
         {
-            await _context.Set<object>().AddAsync(model);
+            await _context.Set<List>().AddAsync(model);
         }
 
         public async Task<List> GetListById(int id)

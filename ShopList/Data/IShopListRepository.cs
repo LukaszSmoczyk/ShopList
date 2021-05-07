@@ -8,12 +8,12 @@ namespace ShopList.Data
 {
     public interface IShopListRepository
     {
-        public Task<IEnumerable<object>> GetAll();
+        public Task<IEnumerable<List>> GetAll();
 
         public Task SaveAsync();
 
 
-        public Task Add(object model);
+        public Task Add(List model);
 
 
         public Task<List> GetListById(int id);
