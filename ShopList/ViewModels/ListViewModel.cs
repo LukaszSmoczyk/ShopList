@@ -11,6 +11,5 @@ namespace ShopList.ViewModels
         public int Id { get; set; }
         public string ListName { get; set; }
         public ICollection<ItemViewModel> Items { get; set; }
-        public DateTime CreationDate { get; set; }
     }
 }

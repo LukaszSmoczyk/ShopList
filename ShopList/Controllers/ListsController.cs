@@ -26,6 +26,7 @@ namespace ShopList.Controllers
             _mapper = mapper;
         }
 
+        // Get /Lists
         [HttpGet]
         public IActionResult Index()
         {
@@ -49,6 +50,7 @@ namespace ShopList.Controllers
             }
         }
 
+        [Route("Create")]
         public IActionResult Create()
         {
             return View();
@@ -56,18 +58,14 @@ namespace ShopList.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody]ListViewModel model)
+        public IActionResult Create(List model)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    var newList = _mapper.Map<List>(model);
-
-                    newList.CreationDate = DateTime.Now;
-                    _repository.AddEntity(newList);
+                    _repository.AddEntity(model);
                     _repository.SaveAll();
-
                     return RedirectToAction(nameof(Index));
                 }
                 else
@@ -81,6 +79,39 @@ namespace ShopList.Controllers
             }
 
             return View(model);
+        
         }
+
+
+
+
+/*            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var newList = _mapper.Map<List>(model);
+
+                    if (newList.CreationDate == DateTime.MinValue)
+                    {
+                        newList.CreationDate = DateTime.Now;
+                    };
+
+                    _repository.AddEntity(newList);
+                    _repository.SaveAll();
+
+                    return Created($"/Lists/Details/{newList.Id}", _mapper.Map<ListViewModel>(newList));
+                }
+                else
+                {
+                    return BadRequest(ModelState);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Failed to save new list: {ex}");
+            }
+
+            return View("Details", "Lists");*/
+        
     }
 }

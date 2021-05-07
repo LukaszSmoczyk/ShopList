@@ -1,8 +1,10 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using ShopList.Data.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace ShopList.Data
@@ -18,55 +20,25 @@ namespace ShopList.Data
             _logger = logger;
         }
 
-        public IEnumerable<List> GetAllLists()
+        public async Task<IEnumerable<object>> GetAll()
         {
-            try
-            {
-                _logger.LogInformation("GetAllLists was called");
-
-                return _context.Lists
-                    .OrderBy(l => l.ListName)
-                    .ToList();
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Failed to get all lists: {ex}");
-                return null;
-            }
+            return await _context.Set<object>().ToListAsync();
+        }
+        public async Task SaveAsync()
+        {
+            await _context.SaveChangesAsync();
         }
 
-        public IEnumerable<Item> GetAllItems()
+        public async Task Add(object model)
         {
-            try
-            {
-                _logger.LogInformation("GetAllItems was called");
-
-                return _context.Items
-                    .OrderBy(p => p.ItemName)
-                    .ToList();
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Failed to get all products: {ex}");
-                return null;
-            }
+            await _context.Set<object>().AddAsync(model);
         }
 
-        public bool SaveAll()
+        public async Task<List> GetListById(int id)
         {
-            return _context.SaveChanges() > 0;
-        }
-
-        public void AddEntity(object model)
-        {
-            _context.Add(model);
-        }
-
-        public List GetListById(int id)
-        {
-            return _context.Lists
-                .Where(o => o.Id == id)
-                .FirstOrDefault();
+            return await _context.Lists
+                .Where(i => i.Id == id)
+                .FirstOrDefaultAsync();
         }
     }
 }

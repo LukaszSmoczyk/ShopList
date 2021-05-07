@@ -1,30 +1,31 @@
-﻿@model ListViewModel
+﻿@model List
 @{
     ViewData["Title"] = "Create List";
 }
+    <div class="col-md-6 offset-md-3">
+    <h1>Create</h1>
 
-<h1>Create</h1>
-
-<h4>List</h4>
-<hr />
-<div class="col-md-6 offset-md-3">
-    <div class="card card-body bg-light">
-        <form asp-action="Create">
-
-            <div asp-validation-summary="ModelOnly"></div>
-
-            <div class="form-group">
-                <label asp-for="ListName">List title:</label>
-                <input asp-for="ListName" class="form-control" />
-                <span asp-validation-for="ListName"></span>
-            </div>
-
-            <div class="form-group">
-                <button type="submit" value="Create"><i class='fas fa-marker'></i> Create list</button>
-            </div>
-        </form>
+    <h4>List</h4>
+    <hr />
     </div>
-</div>
-<div>
-    <a asp-action="Index">Back to All Lists</a>
-</div>
+    <div class="col-md-6 offset-md-3">
+        <div class="card card-body bg-light">
+            <form asp-action="Create">
+
+                <div asp-validation-summary="ModelOnly"></div>
+
+                <div class="form-group">
+                    <label asp-for="ListName">List title:</label>
+                    <input asp-for="ListName" class="form-control" />
+                    <span asp-validation-for="ListName"></span>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" value="Create"><i class='fas fa-marker'></i> Create list</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div>
+        <a asp-action="Index">Back to All Lists</a>
+    </div>

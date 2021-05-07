@@ -9,9 +9,6 @@ namespace ShopList.Data.Entities
     {
         public int Id { get; set; }
         public string ListName { get; set; }
-        public List<Item> Items { get; set; }
-        public DateTime CreationDate { get; set; }
-
-
+        public ICollection<Item> Items { get; set; }
     }
 }

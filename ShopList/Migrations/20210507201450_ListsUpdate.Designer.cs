@@ -10,8 +10,8 @@ using ShopList.Data;
 namespace ShopList.Migrations
 {
     [DbContext(typeof(ShopListDbContext))]
-    [Migration("20210425162132_Initial")]
-    partial class Initial
+    [Migration("20210507201450_ListsUpdate")]
+    partial class ListsUpdate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -53,9 +53,6 @@ namespace ShopList.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("DateTime")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("ListName")
                         .HasColumnType("nvarchar(max)");
