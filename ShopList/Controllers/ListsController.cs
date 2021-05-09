@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace ShopList.Controllers
 {
-    [Route("[Controller]")]
+    [Route("api/[controller]")]
     public class ListsController : Controller
     {
         public readonly IShopListRepository _repository;
@@ -26,7 +26,8 @@ namespace ShopList.Controllers
             _mapper = mapper;
         }
 
-        // Get /Lists
+        // Get /api/Lists
+
         [HttpGet]
         public async Task<IActionResult> Index()
         {
@@ -34,7 +35,7 @@ namespace ShopList.Controllers
             return View(await results);
         }
 
-        [HttpGet("{id:int}")]
+        [HttpGet("Details/{id:int}")]
         public IActionResult Details(int id)
         {
             try
@@ -50,40 +51,28 @@ namespace ShopList.Controllers
             }
         }
 
-        [Route("Create")]
+        [HttpGet("Create")]
         public IActionResult Create()
         {
             return View();
         }
 
-
-        [HttpPost]
-        public async Task<IActionResult> Create([FromBody]ListViewModel model)
+        [HttpPost("Create")]
+        public async Task<IActionResult> Create(ListViewModel model)
         {
-            try
+            if (ModelState.IsValid)
             {
-                if (ModelState.IsValid)
-                {
-                    var newList = _mapper.Map<List>(model);
+                var newList = _mapper.Map<List>(model);
 
-                    await _repository.Add(newList);
-                    await _repository.SaveAsync();
+                await _repository.Add(newList);
+                await _repository.SaveAsync();
+                return RedirectToAction("Lists", "Details");
 
-                    return Created($"/Lists/Details/{newList.Id}", _mapper.Map<ListViewModel>(newList));
-
-                }
-                else
-                {
-                    return BadRequest(ModelState);
-                }
             }
-            catch (Exception ex)
+            else
             {
-                _logger.LogError($"Failed to save new list: {ex}");
+                return BadRequest(ModelState);
             }
-
-            return BadRequest("Failed to save new order.");
-
         }
     }
 }
