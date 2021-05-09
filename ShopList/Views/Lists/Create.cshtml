@@ -1,4 +1,4 @@
-﻿@model List
+﻿@model ListViewModel
 @{
     ViewData["Title"] = "Create List";
 }
@@ -10,7 +10,7 @@
     </div>
     <div class="col-md-6 offset-md-3">
         <div class="card card-body bg-light">
-            <form asp-action="Create">
+            <form method="post">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
                     <label asp-for="ListName" class="control-label">List title:</label>
@@ -18,10 +18,7 @@
                     <span asp-validation-for="ListName" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary"><i class='fas fa-envelope'></i> Send Message</button>
-                </div>
-                <div class="form-group">
-                    <input type="submit" value="Create" class="btn btn-primary" />
+                    <button type="submit" class="btn btn-primary"><i class='fas fa-marker'></i>Create</button>
                 </div>
             </form>
         </div>

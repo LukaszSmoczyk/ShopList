@@ -58,15 +58,19 @@ namespace ShopList.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> Create([Bind("ListName")]List model)
+        public async Task<IActionResult> Create([FromBody]ListViewModel model)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                     await _repository.Add(model);
-                     await _repository.SaveAsync();
-                    return  RedirectToAction(nameof(Index));
+                    var newList = _mapper.Map<List>(model);
+
+                    await _repository.Add(newList);
+                    await _repository.SaveAsync();
+
+                    return Created($"/Lists/Details/{newList.Id}", _mapper.Map<ListViewModel>(newList));
+
                 }
                 else
                 {
@@ -78,8 +82,8 @@ namespace ShopList.Controllers
                 _logger.LogError($"Failed to save new list: {ex}");
             }
 
-            return View(model);
-        
+            return BadRequest("Failed to save new order.");
+
         }
     }
 }
