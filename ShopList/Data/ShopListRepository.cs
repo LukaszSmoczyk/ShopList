@@ -40,5 +40,17 @@ namespace ShopList.Data
                 .Where(i => i.Id == id)
                 .FirstOrDefaultAsync();
         }
+
+        public IEnumerable<Item> GetAllItemsInList(List list)
+        {
+            return _context.Items
+                .Where(o => o.List == list)
+                .ToList();
+        }
+
+        public async Task Add(Item model)
+        {
+            await _context.Set<Item>().AddAsync(model);
+        }
     }
 }

@@ -10,13 +10,15 @@
         {
             foreach (var list in Model)
             {
-                <div class="card col-sm-6">
-                    <div class="card-img-top" src="~/images/kot1.jpeg" alt="Card image cap">
-                        <h5 class="card-title">@list.ListName</h5>
-                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">@list.ListName</h5>
+                    <p class="card-text">You currently have: X items in a list</p>
+                    <a class="btn btn-primary" asp-controller="Lists" asp-action="Details" asp-route-id="@list.Id">Go to</a>
                 </div>
+            </div>
+        </div>        
             }
         }
         else

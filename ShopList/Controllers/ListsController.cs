@@ -41,8 +41,9 @@ namespace ShopList.Controllers
             try
             {
                 var list = _repository.GetListById(id);
-                if (list != null) return Ok(_mapper.Map<ListViewModel>(list));
-                else return NotFound();
+                return View();
+                // if (list != null) return Ok(_mapper.Map<ListViewModel>(list));
+                // else return NotFound();
             }
             catch (Exception ex)
             {
@@ -63,6 +64,7 @@ namespace ShopList.Controllers
             if (ModelState.IsValid)
             {
                 var newList = _mapper.Map<List>(model);
+                newList.Items.Count.Equals(0);
 
                 await _repository.Add(newList);
                 await _repository.SaveAsync();

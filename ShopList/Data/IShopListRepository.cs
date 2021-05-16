@@ -12,11 +12,13 @@ namespace ShopList.Data
 
         public Task SaveAsync();
 
-
         public Task Add(List model);
 
-
         public Task<List> GetListById(int id);
+
+        public IEnumerable<Item> GetAllItemsInList(List list);
+
+        public Task Add(Item model);
 
     }
 }

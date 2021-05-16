@@ -12,9 +12,10 @@ namespace ShopList.ViewModels
         public int Id { get; set; }
 
         [Required]
-        [MinLength(3)]
+        [MinLength(2)]
         public string ItemName { get; set; }
         public string Quantity { get; set; }
+        public List List { get; set; }
         public DateTime DateOfAddingItem { get; set; }
 
     }

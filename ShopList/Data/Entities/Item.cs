@@ -11,6 +11,7 @@ namespace ShopList.Data.Entities
         public string ItemName { get; set; }
         public string Quantity { get; set; }
         public DateTime DateOfAddingItem { get; set; }
+        public List List { get; set; }
         public AppUser User { get; }
     }
 }
