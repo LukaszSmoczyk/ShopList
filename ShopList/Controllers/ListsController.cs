@@ -36,14 +36,19 @@ namespace ShopList.Controllers
         }
 
         [HttpGet("Details/{id:int}")]
-        public IActionResult Details(int id)
+        public async Task<IActionResult> Details(int id)
         {
             try
             {
                 var list = _repository.GetListById(id);
-                return View();
-                // if (list != null) return Ok(_mapper.Map<ListViewModel>(list));
-                // else return NotFound();
+                if (list != null)
+                {
+                    return View(await list);
+                }
+                else
+                {
+                    return NotFound();
+                }
             }
             catch (Exception ex)
             {

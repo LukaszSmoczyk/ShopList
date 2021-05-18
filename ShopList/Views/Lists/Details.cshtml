@@ -1,1 +1,14 @@
-﻿<p2>Details about your list of choice will be there</p2>
+﻿@model List
+@{
+    ViewBag.Title = "See your list";
+}
+
+
+<div class="container">
+    <h2>@Html.DisplayFor(model => model.ListName)</h2>
+</div>
+
+<div class="container">
+     @{await Html.RenderPartialAsync("~/Views/Items/Index.cshtml");}
+</div>
+
