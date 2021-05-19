@@ -36,23 +36,25 @@ namespace ShopList.Controllers
         }
 
         [HttpGet("Details/{id:int}")]
-        public ActionResult Details()
+        public async Task<IActionResult> Details(int id)
         {
-            return View();
-
-        }
-
-        public PartialViewResult ListDetails(int id)
-        {
+            try
+            {
                 var list = _repository.GetListById(id);
                 if (list != null)
                 {
-                    return PartialView(list);
+                    return View(await list);
                 }
                 else
                 {
-                return PartialView("/error");
+                    return NotFound();
                 }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Failed to return list: {ex}");
+                return BadRequest($"Failed to return list");
+            }
         }
 
         [HttpGet("Create")]
