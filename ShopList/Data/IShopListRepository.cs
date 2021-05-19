@@ -16,7 +16,7 @@ namespace ShopList.Data
 
         public Task<List> GetListById(int id);
 
-        public IEnumerable<Item> GetAllItemsInList(List list);
+        public Task<IEnumerable<Item>> GetAllItemsInList(int id);
 
         public Task Add(Item model);
 

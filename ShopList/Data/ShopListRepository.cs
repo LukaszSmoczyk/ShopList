@@ -41,11 +41,11 @@ namespace ShopList.Data
                 .FirstOrDefaultAsync();
         }
 
-        public IEnumerable<Item> GetAllItemsInList(List list)
+        public async Task<IEnumerable<Item>> GetAllItemsInList(int id)
         {
-            return _context.Items
-                .Where(o => o.List == list)
-                .ToList();
+            return await _context.Set<Item>()
+                .Where(i => i.List.Id == id)
+                .ToListAsync();
         }
 
         public async Task Add(Item model)

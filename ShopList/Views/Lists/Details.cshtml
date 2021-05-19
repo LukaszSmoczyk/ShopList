@@ -1,14 +1,11 @@
-﻿@model List
+﻿<h2>List details</h2>
+
 @{
-    ViewBag.Title = "See your list";
+    @await Component.InvokeAsync("ListDetails");
+    @await Component.InvokeAsync("~/Views/Items/ItemsDetails");
 }
 
-
-<div class="container">
-    <h2>@Html.DisplayFor(model => model.ListName)</h2>
-</div>
-
-<div class="container">
-     @{await Html.RenderPartialAsync("~/Views/Items/Index.cshtml");}
-</div>
+@*<div class="container">
+        @await Html.PartialAsync("~/Views/Items/Index.cshtml");
+    </div>*@
 

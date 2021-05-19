@@ -1,0 +1,36 @@
+﻿@model IEnumerable<ItemViewModel>
+
+<div class="container">
+    <h2>Your items:</h2>
+
+    <table class="table table-borderless table-hover">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Item</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Added on</th>
+                <th scope="col">User</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                @if (Model != null)
+                {
+                    int localId = 1;
+                    foreach (var item in Model)
+                    {
+                        <th scope="row">@(localId)</th>
+                        <td>@item.ItemName</td>
+                        <td>@item.Quantity</td>
+                        <td>@item.DateOfAddingItem</td>
+                        localId++;
+                    }
+                } else
+                {
+                    <td>You don't have any items in your list</td>
+                }
+            </tr>
+        </tbody>
+    </table>
+</div>
