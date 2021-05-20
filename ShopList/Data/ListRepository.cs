@@ -34,18 +34,19 @@ namespace ShopList.Data
             await _context.Set<List>().AddAsync(model);
         }
 
-        public async Task<List> GetListById(int id)
+        public List GetListById(int id)
         {
-            return await _context.Lists
-                .Where(i => i.Id == id)
-                .FirstOrDefaultAsync();
+            return _context.Lists.
+                Where(i => i.Id == id).
+                FirstOrDefault();
         }
 
-        public async Task<List> GetListName(int id)
+        public string GetListName(int id)
         {
-            return await _context.Lists
+            return _context.Lists
                 .Where(i => i.Id == id)
-                .FirstOrDefaultAsync();
+                .FirstOrDefault()
+                .ListName;
         }
     }
 }

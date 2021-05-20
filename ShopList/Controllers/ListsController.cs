@@ -47,7 +47,7 @@ namespace ShopList.Controllers
                 if (list != null)
                 {
                    
-                    return View(await list);
+                    return View(list);
                 }
                 else
                 {
@@ -87,13 +87,12 @@ namespace ShopList.Controllers
         }
 
         [HttpGet("List/{id:int}")]
-        public async Task<IActionResult> List(int id, List model)
+        public async Task<IActionResult> List(int id)
         {
-            var newListName = _mapper.Map<List>(model);
 
             var itemListViewModel = new ItemListViewModel
             {
-                ListName = newListName.ListName,
+                ListName = _listRepository.GetListName(id),
                 Items = (List<Item>)await _itemRepository.GetAllItemsInList(id)
             };
 

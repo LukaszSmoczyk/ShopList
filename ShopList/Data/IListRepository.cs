@@ -14,9 +14,9 @@ namespace ShopList.Data
 
         public Task Add(List model);
 
-        public Task<List> GetListById(int id);
+        public List GetListById(int id);
 
-        public Task<List> GetListName(int id);
+        public string GetListName(int id);
 
     }
 }
