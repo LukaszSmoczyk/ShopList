@@ -16,5 +16,7 @@ namespace ShopList.Data
 
         public Task<List> GetListById(int id);
 
+        public Task<List> GetListName(int id);
+
     }
 }

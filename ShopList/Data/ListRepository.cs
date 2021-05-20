@@ -40,5 +40,12 @@ namespace ShopList.Data
                 .Where(i => i.Id == id)
                 .FirstOrDefaultAsync();
         }
+
+        public async Task<List> GetListName(int id)
+        {
+            return await _context.Lists
+                .Where(i => i.Id == id)
+                .FirstOrDefaultAsync();
+        }
     }
 }

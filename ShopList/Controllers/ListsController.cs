@@ -14,14 +14,16 @@ namespace ShopList.Controllers
     [Route("api/[controller]")]
     public class ListsController : Controller
     {
-        public readonly IListRepository _repository;
+        public readonly IListRepository _listRepository;
+        public readonly IItemRepository _itemRepository;
         public readonly ILogger<ListsController> _logger;
         public readonly IMapper _mapper;
         private readonly Random _random;
 
-        public ListsController(IListRepository repository, ILogger<ListsController> logger, IMapper mapper)
+        public ListsController(IListRepository listRepository, IItemRepository itemRepository, ILogger<ListsController> logger, IMapper mapper)
         {
-            _repository = repository;
+            _listRepository = listRepository;
+            _itemRepository = itemRepository;
             _logger = logger;
             _mapper = mapper;
         }
@@ -31,7 +33,7 @@ namespace ShopList.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var results = _repository.GetAll();
+            var results = _listRepository.GetAll();
             return View(await results);
         }
 
@@ -40,7 +42,7 @@ namespace ShopList.Controllers
         {
             try
             {
-                var list = _repository.GetListById(id);
+                var list = _listRepository.GetListById(id);
 
                 if (list != null)
                 {
@@ -73,8 +75,8 @@ namespace ShopList.Controllers
                 var newList = _mapper.Map<List>(model);
                 newList.Items.Count.Equals(0);
 
-                await _repository.Add(newList);
-                await _repository.SaveAsync();
+                await _listRepository.Add(newList);
+                await _listRepository.SaveAsync();
                 return RedirectToAction("Lists", "Details");
 
             }
@@ -82,6 +84,20 @@ namespace ShopList.Controllers
             {
                 return BadRequest(ModelState);
             }
+        }
+
+        [HttpGet("List/{id:int}")]
+        public async Task<IActionResult> List(int id, List model)
+        {
+            var newListName = _mapper.Map<List>(model);
+
+            var itemListViewModel = new ItemListViewModel
+            {
+                ListName = newListName.ListName,
+                Items = (List<Item>)await _itemRepository.GetAllItemsInList(id)
+            };
+
+            return View(itemListViewModel);
         }
     }
 }
