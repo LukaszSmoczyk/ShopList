@@ -19,6 +19,12 @@ namespace ShopList.Data
             CreateMap<List, ListViewModel>()
                 .ReverseMap();
 
+            CreateMap<List, ItemListViewModel>()
+                .ReverseMap();
+
+            CreateMap<Item, ItemListViewModel>()
+                .ReverseMap();
+
         }
     }
 }

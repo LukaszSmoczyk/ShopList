@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace ShopList.Data
 {
-    public class ShopListRepository : IShopListRepository
+    public class ListRepository : IListRepository
     {
         private readonly ShopListDbContext _context;
-        private readonly ILogger<ShopListRepository> _logger;
+        private readonly ILogger<ListRepository> _logger;
 
-        public ShopListRepository(ShopListDbContext context, ILogger<ShopListRepository> logger)
+        public ListRepository(ShopListDbContext context, ILogger<ListRepository> logger)
         {
             _context = context;
             _logger = logger;
@@ -39,18 +39,6 @@ namespace ShopList.Data
             return await _context.Lists
                 .Where(i => i.Id == id)
                 .FirstOrDefaultAsync();
-        }
-
-        public async Task<IEnumerable<Item>> GetAllItemsInList(int id)
-        {
-            return await _context.Set<Item>()
-                .Where(i => i.List.Id == id)
-                .ToListAsync();
-        }
-
-        public async Task Add(Item model)
-        {
-            await _context.Set<Item>().AddAsync(model);
         }
     }
 }

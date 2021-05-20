@@ -26,7 +26,7 @@ namespace ShopList
 
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
-            services.AddScoped<IShopListRepository, ShopListRepository>();
+            services.AddScoped<IListRepository, ListRepository>();
 
             services.AddControllersWithViews();
 

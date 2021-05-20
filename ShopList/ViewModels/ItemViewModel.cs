@@ -9,14 +9,13 @@ namespace ShopList.ViewModels
 {
     public class ItemViewModel
     {
-        public int Id { get; set; }
+        public int ItemId { get; set; }
 
         [Required]
         [MinLength(2)]
         public string ItemName { get; set; }
         public string Quantity { get; set; }
         public ListViewModel List { get; set; }
-        public DateTime DateOfAddingItem { get; set; }
 
     }
 }

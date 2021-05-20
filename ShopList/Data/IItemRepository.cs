@@ -6,19 +6,13 @@ using System.Threading.Tasks;
 
 namespace ShopList.Data
 {
-    public interface IShopListRepository
+    public interface IItemRepository
     {
-        public Task<IEnumerable<List>> GetAll();
 
         public Task SaveAsync();
-
-        public Task Add(List model);
-
-        public Task<List> GetListById(int id);
 
         public Task<IEnumerable<Item>> GetAllItemsInList(int id);
 
         public Task Add(Item model);
-
     }
 }

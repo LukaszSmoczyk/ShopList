@@ -6,9 +6,9 @@ namespace ShopList.Controllers
 
     public class AppController : Controller
     {
-        private readonly IShopListRepository _repository;
+        private readonly IListRepository _repository;
 
-        public AppController(IShopListRepository repository)
+        public AppController(IListRepository repository)
         {
             _repository = repository;
         }

@@ -14,12 +14,12 @@ namespace ShopList.Controllers
     [Route("api/[controller]")]
     public class ListsController : Controller
     {
-        public readonly IShopListRepository _repository;
+        public readonly IListRepository _repository;
         public readonly ILogger<ListsController> _logger;
         public readonly IMapper _mapper;
         private readonly Random _random;
 
-        public ListsController(IShopListRepository repository, ILogger<ListsController> logger, IMapper mapper)
+        public ListsController(IListRepository repository, ILogger<ListsController> logger, IMapper mapper)
         {
             _repository = repository;
             _logger = logger;
@@ -41,8 +41,10 @@ namespace ShopList.Controllers
             try
             {
                 var list = _repository.GetListById(id);
+
                 if (list != null)
                 {
+                   
                     return View(await list);
                 }
                 else

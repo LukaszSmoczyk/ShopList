@@ -13,12 +13,12 @@ namespace ShopList.Controllers
     [Route("api/Lists")]
     public class ItemsController : Controller
     {
-        public readonly IShopListRepository _repository;
+        public readonly IItemRepository _repository;
         public readonly ILogger<ItemsController> _logger;
         public readonly IMapper _mapper;
         private readonly Random _random;
 
-        public ItemsController(IShopListRepository repository, ILogger<ItemsController> logger, IMapper mapper)
+        public ItemsController(IItemRepository repository, ILogger<ItemsController> logger, IMapper mapper)
         {
             _repository = repository;
             _logger = logger;
