@@ -37,29 +37,18 @@ namespace ShopList.Controllers
             return View(await results);
         }
 
-        [HttpGet("Details/{id:int}")]
-        public async Task<IActionResult> Details(int id)
+/*        [HttpGet("Details/{id:int}")]
+        public ActionResult Details(int id)
         {
-            try
+            if (_listRepository.GetListById(id) != null)
             {
-                var list = _listRepository.GetListById(id);
-
-                if (list != null)
-                {
-                   
-                    return View(list);
-                }
-                else
-                {
-                    return NotFound();
-                }
+                return RedirectToAction("Index", "ItemsController", {@id);
             }
-            catch (Exception ex)
+            else
             {
-                _logger.LogError($"Failed to return list: {ex}");
-                return BadRequest($"Failed to return list");
+                return NotFound();
             }
-        }
+        }*/
 
         [HttpGet("Create")]
         public IActionResult Create()
@@ -77,7 +66,7 @@ namespace ShopList.Controllers
 
                 await _listRepository.Add(newList);
                 await _listRepository.SaveAsync();
-                return RedirectToAction("Lists", "Details");
+                return RedirectToAction("Index", "Lists");
 
             }
             else
@@ -86,17 +75,5 @@ namespace ShopList.Controllers
             }
         }
 
-        [HttpGet("List/{id:int}")]
-        public async Task<IActionResult> List(int id)
-        {
-
-            var itemListViewModel = new ItemListViewModel
-            {
-                ListName = _listRepository.GetListName(id),
-                Items = (List<Item>)await _itemRepository.GetAllItemsInList(id)
-            };
-
-            return View(itemListViewModel);
-        }
     }
 }

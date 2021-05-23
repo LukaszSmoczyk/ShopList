@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ShopList.Data;
 using ShopList.Data.Entities;
+using ShopList.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,51 +14,65 @@ namespace ShopList.Controllers
     [Route("api/Lists")]
     public class ItemsController : Controller
     {
-        public readonly IItemRepository _repository;
+        public readonly IItemRepository _itemRepository;
+        public readonly IListRepository _listRepository;
         public readonly ILogger<ItemsController> _logger;
         public readonly IMapper _mapper;
         private readonly Random _random;
 
-        public ItemsController(IItemRepository repository, ILogger<ItemsController> logger, IMapper mapper)
+        public ItemsController(IItemRepository itemRepository, IListRepository listRepository, ILogger<ItemsController> logger, IMapper mapper)
         {
-            _repository = repository;
+            _itemRepository = itemRepository;
+            _listRepository = listRepository;
             _logger = logger;
             _mapper = mapper;
         }
 
-        /*        [HttpGet("/Details/{id:int}")]
-                public async Task<IActionResult> Index(int id)
-                {
-                    try
-                    {
-                        var items = _repository.GetAllItemsInList(id);
-                        if (items != null)
-                        {
-                            return View(await items);
-                        }
-                        else
-                        {
-                            return NotFound();
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        _logger.LogError($"Failed to return list: {ex}");
-                        return BadRequest($"Failed to return list");
-                    }
-                }*/
-
-        public PartialViewResult ItemsDetails(int id)
+        [HttpGet("Details/{id:int}")]
+        public async Task<IActionResult> Index(int id)
         {
-            var items = _repository.GetAllItemsInList(id);
-            if (items != null)
+            try
             {
-                return PartialView(items);
+                if (_listRepository.GetListById(id) != null)
+                {
+                    var itemListViewModel = new ItemListViewModel
+                    {
+                        ListName = _listRepository.GetListName(id),
+                        Items = (List<Item>)await _itemRepository.GetAllItemsInList(id)
+                    };
+                    return View(itemListViewModel);
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Failed to return list: {ex}");
+                return BadRequest($"Failed to return list");
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Index(ItemListViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var newItem = _mapper.Map<Item>(model);
+
+                await _itemRepository.Add(newItem);
+                newItem.DateOfAddingItem = DateTime.Now;
+                await _itemRepository.SaveAsync();
+                return View();
+
             }
             else
             {
-                return PartialView("/error");
+                return BadRequest(ModelState);
             }
         }
+
+
     }
 }

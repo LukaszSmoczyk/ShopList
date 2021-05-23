@@ -1,7 +1,15 @@
-﻿@model IEnumerable<ItemViewModel>
+﻿@model ItemListViewModel
+@{
+    ViewBag.Title = "See your list";
+}
+
 
 <div class="container">
-    <h2>Your items:</h2>
+    <h2>@Model.ListName</h2>
+</div>
+
+<div class="container">
+    <h4>Your items:</h4>
 
     <table class="table table-borderless table-hover">
         <thead>
@@ -18,23 +26,18 @@
                 @if (Model != null)
                 {
                     int localId = 1;
-                    foreach (var item in Model)
+                    foreach (var item in Model.Items)
                     {
                         <th scope="row">@(localId)</th>
                         <td>@item.ItemName</td>
                         <td>@item.Quantity</td>
+                        <td>@item.DateOfAddingItem</td>
                         localId++;
                     }
-
                 }
-
                 else
                 {
-
-
                     <td>You don't have any items in your list</td>
-
-
                 }
             </tr>
         </tbody>
