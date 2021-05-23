@@ -54,16 +54,16 @@ namespace ShopList.Controllers
             }
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Index(ItemListViewModel model)
+        [HttpPost("Details/{id:int}")]
+        public async Task<IActionResult> Index(int id, [FromForm]ItemListViewModel model)
         {
             try
             {
-                var newItem = _mapper.Map<Item>(model);
+                var newItem = _mapper.Map<ItemListViewModel, Item>(model);
                 await _itemRepository.Add(newItem);
                 await _itemRepository.SaveAsync();
 
-                return View();
+                return Created($"/api/Lists/Details/{newItem.List.Id}", _mapper.Map<ItemListViewModel, Item>(model));
 
             }
             catch (Exception ex)
