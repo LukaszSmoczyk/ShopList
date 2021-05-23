@@ -57,20 +57,43 @@ namespace ShopList.Controllers
         [HttpPost]
         public async Task<IActionResult> Index(ItemListViewModel model)
         {
-            if (ModelState.IsValid)
+            try
             {
                 var newItem = _mapper.Map<Item>(model);
-
                 await _itemRepository.Add(newItem);
-                newItem.DateOfAddingItem = DateTime.Now;
                 await _itemRepository.SaveAsync();
+
                 return View();
 
             }
-            else
+            catch (Exception ex)
             {
-                return BadRequest(ModelState);
+                _logger.LogError($"Failed to return list: {ex}");
+                return BadRequest($"Failed to return list");
             }
+
+
+
+
+
+            /*            if (ModelState.IsValid)
+                        {
+
+                            var newItem = _mapper.Map<Item>(model);
+                            var currentListId = newItem.List.Id;
+
+                            if (newItem.DateOfAddingItem == DateTime.MinValue)
+                            {
+                                newItem.DateOfAddingItem = DateTime.Now;
+                            }
+                            await _itemRepository.Add(newItem);
+                            await _itemRepository.SaveAsync();
+                            return CreatedAtAction(nameof(Index), new { id = currentListId });
+                        }
+                        else
+                        {
+                            return BadRequest(ModelState);
+                        }*/
         }
 
 

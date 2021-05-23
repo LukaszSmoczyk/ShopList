@@ -48,5 +48,10 @@ namespace ShopList.Data
                 .FirstOrDefault()
                 .ListName;
         }
+
+        public int GetId(int id)
+        {
+            return id;
+        }
     }
 }
