@@ -37,19 +37,6 @@ namespace ShopList.Controllers
             return View(await results);
         }
 
-/*        [HttpGet("Details/{id:int}")]
-        public ActionResult Details(int id)
-        {
-            if (_listRepository.GetListById(id) != null)
-            {
-                return RedirectToAction("Index", "ItemsController", {@id);
-            }
-            else
-            {
-                return NotFound();
-            }
-        }*/
-
         [HttpGet("Create")]
         public IActionResult Create()
         {

@@ -28,7 +28,7 @@
                     {
                         <td>@item.ItemName</td>
                         <td>@item.Quantity</td>
-                        <td>@item.DateOfAddingItem</td>
+                        <td>@item.DateOfAddingItem.Day</td>
                     }
                 }
                 else
@@ -38,26 +38,12 @@
             </tr>
         </tbody>
     </table>
+
+    <p>
+
+    </p>
+    <div class="card-body">
+        <a class="btn btn-primary" asp-action="Create" asp-route-id="@Model.ListId">/Add">Create</a>
+    </div>
 </div>
-<div class="container">
-    <form method="post">
-        <div class="row">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="col">
-                <div class="form-group">
-                    <input asp-for="ItemName" class="form-control" placeholder="Item name">
-                    <span asp-validation-for="ItemName" class="text-danger"></span>
-                </div>
-            </div>
-            <div class="col">
-                <div class="form-group">
-                    <input asp-for="Quantity" class="form-control" placeholder="Item name">
-                    <span asp-validation-for="Quantity" class="text-danger"></span>
-                </div>
-            </div>
-        </div>
-        <div class="form-group">
-            <button type="submit" asp-controller="Items" class="btn btn-primary">Add item to the list</button>
-        </div>
-    </form>
-</div>
+

@@ -1,0 +1,24 @@
+﻿@model ItemListViewModel
+
+<div class="container">
+    <form asp-controller="Items" asp-action="Create">
+        <div class="row">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="col">
+                <div class="form-group">
+                    <input asp-for="ItemName" class="form-control" placeholder="Item name">
+                    <span asp-validation-for="ItemName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <input asp-for="Quantity" class="form-control" placeholder="Item name">
+                    <span asp-validation-for="Quantity" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Add item to the list</button>
+        </div>
+    </form>
+</div>

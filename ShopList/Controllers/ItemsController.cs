@@ -28,7 +28,7 @@ namespace ShopList.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet("Details/{id:int}")]
+        [HttpGet("Index/{id:int}")]
         public async Task<IActionResult> Index(int id)
         {
             try
@@ -37,6 +37,7 @@ namespace ShopList.Controllers
                 {
                     var itemListViewModel = new ItemListViewModel
                     {
+                        ListId = _listRepository.GetId(id),
                         ListName = _listRepository.GetListName(id),
                         Items = (List<Item>)await _itemRepository.GetAllItemsInList(id)
                     };
@@ -54,48 +55,34 @@ namespace ShopList.Controllers
             }
         }
 
-        [HttpPost("Details/{id:int}")]
-        public async Task<IActionResult> Index(int id, [FromForm]ItemListViewModel model)
+        [HttpGet("Index/{id:int}/Add")]
+        public IActionResult Create(int id)
         {
-            try
+            if (_listRepository.GetListById(id) != null)
             {
-                var newItem = _mapper.Map<ItemListViewModel, Item>(model);
-                await _itemRepository.Add(newItem);
-                await _itemRepository.SaveAsync();
-
-                return Created($"/api/Lists/Details/{newItem.List.Id}", _mapper.Map<ItemListViewModel, Item>(model));
-
+                return View();
             }
-            catch (Exception ex)
+            else
             {
-                _logger.LogError($"Failed to return list: {ex}");
-                return BadRequest($"Failed to return list");
+                return BadRequest(ModelState);
             }
-
-
-
-
-
-            /*            if (ModelState.IsValid)
-                        {
-
-                            var newItem = _mapper.Map<Item>(model);
-                            var currentListId = newItem.List.Id;
-
-                            if (newItem.DateOfAddingItem == DateTime.MinValue)
-                            {
-                                newItem.DateOfAddingItem = DateTime.Now;
-                            }
-                            await _itemRepository.Add(newItem);
-                            await _itemRepository.SaveAsync();
-                            return CreatedAtAction(nameof(Index), new { id = currentListId });
-                        }
-                        else
-                        {
-                            return BadRequest(ModelState);
-                        }*/
         }
 
+        [HttpPost("Index/{id:int}/Add")]
+        public async Task<IActionResult> Create(int id, ItemListViewModel model)
+        {
+            if (_listRepository.GetListById(id) != null)
+            {
+                var newItem = _mapper.Map<Item>(model);
+                await _itemRepository.Add(newItem);
+                await _listRepository.SaveAsync();
+                return Created($"/api/Lists/Index/{id}", _mapper.Map<Item>(model));
 
+            }
+            else
+            {
+                return BadRequest(ModelState);
+            }
+        }
     }
 }

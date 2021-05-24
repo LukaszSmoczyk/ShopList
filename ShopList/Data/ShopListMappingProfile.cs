@@ -20,19 +20,17 @@ namespace ShopList.Data
                 .ReverseMap();
 
             CreateMap<List, ItemListViewModel>()
+                .ForMember(dest => dest.ListId, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.ListName, opt => opt.MapFrom(src => src.ListName))
                 .ReverseMap();
 
             CreateMap<Item, ItemListViewModel>()
                 .ForMember(dest => dest.ItemId, opt => opt.MapFrom(src => src.ItemId))
                 .ForMember(dest => dest.ItemName, opt => opt.MapFrom(src => src.ItemName))
-                .ForMember(dest => dest.Items, opt => opt.MapFrom(src => src.List.Items))
-                .ForMember(dest => dest.DateOfAddingItem, opt => opt.MapFrom(src => src.DateOfAddingItem))
-                .ForMember(dest => dest.ListId, opt => opt.MapFrom(src => src.List.Id))
-                .ForMember(dest => dest.ListName, opt => opt.MapFrom(src => src.List.ListName))
                 .ForMember(dest => dest.Quantity, opt => opt.MapFrom(src => src.Quantity))
                 .ReverseMap();
 
-            // .ForMember(i => i.ItemId, x => x.MapFrom(source => source.ItemId))
+
 
         }
     }
