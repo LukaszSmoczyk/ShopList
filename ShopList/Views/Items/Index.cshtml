@@ -21,21 +21,28 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
                 @if (Model.Items != null)
                 {
                     foreach (var item in Model.Items)
                     {
-                        <td>@item.ItemName</td>
-                        <td>@item.Quantity</td>
-                        <td>@item.DateOfAddingItem.Day</td>
+            <tr>
+                <td>@item.ItemName</td>
+                <td>@item.Quantity</td>
+                <td>@item.DateOfAddingItem.Day</td>
+
+            </tr>
+
+
                     }
                 }
                 else
                 {
-                    <td>You don't have any items in your list</td>
+        <tr>
+            <td>You don't have any items in your list</td>
+        </tr>
+
+
                 }
-            </tr>
         </tbody>
     </table>
 
@@ -43,7 +50,7 @@
 
     </p>
     <div class="card-body">
-        <a class="btn btn-primary" asp-action="Create" asp-route-id="@Model.ListId">/Add">Create</a>
+        <a class="btn btn-primary" asp-action="Create" asp-route-id="@Model.ListId">Add Item</a>
     </div>
 </div>
 

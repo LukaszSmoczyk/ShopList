@@ -1,7 +1,7 @@
 ﻿@model ItemListViewModel
 
 <div class="container">
-    <form asp-controller="Items" asp-action="Create">
+    <form method="post">
         <div class="row">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="col">
@@ -12,13 +12,13 @@
             </div>
             <div class="col">
                 <div class="form-group">
-                    <input asp-for="Quantity" class="form-control" placeholder="Item name">
+                    <input asp-for="Quantity" class="form-control" placeholder="Quantity">
                     <span asp-validation-for="Quantity" class="text-danger"></span>
                 </div>
             </div>
         </div>
         <div class="form-group">
-            <button type="submit" class="btn btn-primary">Add item to the list</button>
+            <input type="submit" value="Create" class="btn btn-primary" />
         </div>
     </form>
 </div>

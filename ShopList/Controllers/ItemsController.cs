@@ -74,9 +74,11 @@ namespace ShopList.Controllers
             if (_listRepository.GetListById(id) != null)
             {
                 var newItem = _mapper.Map<Item>(model);
+                newItem.List = _listRepository.GetListById(id);
                 await _itemRepository.Add(newItem);
-                await _listRepository.SaveAsync();
-                return Created($"/api/Lists/Index/{id}", _mapper.Map<Item>(model));
+                newItem.DateOfAddingItem = DateTime.Now;
+                await _itemRepository.SaveAsync();
+                return RedirectToAction("Index", "Items", _listRepository.GetListById(id));
 
             }
             else
