@@ -14,5 +14,7 @@ namespace ShopList.Data
         public Task<IEnumerable<Item>> GetAllItemsInList(int id);
 
         public Task Add(Item model);
+
+        public int GetItemCount(int id);
     }
 }

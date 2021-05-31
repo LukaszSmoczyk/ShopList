@@ -11,12 +11,10 @@ namespace ShopList.Data
     public class ItemRepository : IItemRepository
     {
         private readonly ShopListDbContext _context;
-        private readonly IListRepository _listRepository;
         private readonly ILogger<ItemRepository> _logger;
 
-        public ItemRepository(ShopListDbContext context, IListRepository listRepository, ILogger<ItemRepository> logger)
+        public ItemRepository(ShopListDbContext context, ILogger<ItemRepository> logger)
         {
-            _listRepository = listRepository;
             _context = context;
             _logger = logger;
         }
@@ -27,9 +25,16 @@ namespace ShopList.Data
                 .ToListAsync();
         }
 
+        public int GetItemCount(int id)
+        {
+            return  _context.Set<Item>()
+                .Where(i => i.List.Id == id)
+                .Count();
+        }
+
+
         public async Task Add(Item model)
         {
-
             await _context.Set<Item>().AddAsync(model);
 
         }

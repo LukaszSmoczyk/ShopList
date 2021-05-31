@@ -31,7 +31,7 @@ namespace ShopList.Controllers
         // Get /api/Lists
 
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int id)
         {
             var results = _listRepository.GetAll();
             return View(await results);

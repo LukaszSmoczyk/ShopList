@@ -77,8 +77,9 @@ namespace ShopList.Controllers
                 newItem.List = _listRepository.GetListById(id);
                 await _itemRepository.Add(newItem);
                 newItem.DateOfAddingItem = DateTime.Now;
+                _listRepository.GetListById(id).Items.Add(newItem);
                 await _itemRepository.SaveAsync();
-                return RedirectToAction("Index", "Items", _listRepository.GetListById(id));
+                return RedirectToAction("Index", "Items", new { @id = id });
 
             }
             else

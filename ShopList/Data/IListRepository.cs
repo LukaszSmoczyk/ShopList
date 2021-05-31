@@ -19,5 +19,7 @@ namespace ShopList.Data
 
         public string GetListName(int id);
 
+        public int GetItemCount(int id);
+
     }
 }

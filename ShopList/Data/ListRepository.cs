@@ -13,11 +13,13 @@ namespace ShopList.Data
     {
         private readonly ShopListDbContext _context;
         private readonly ILogger<ListRepository> _logger;
+        private readonly IItemRepository _itemRepository;
 
-        public ListRepository(ShopListDbContext context, ILogger<ListRepository> logger)
+        public ListRepository(ShopListDbContext context, IItemRepository itemRepository, ILogger<ListRepository> logger)
         {
             _context = context;
             _logger = logger;
+            _itemRepository = itemRepository;
         }
 
         public async Task<IEnumerable<List>> GetAll()
@@ -52,6 +54,11 @@ namespace ShopList.Data
         public int GetId(int id)
         {
             return id;
+        }
+
+        public int GetItemCount(int id)
+        {
+            return _itemRepository.GetItemCount(id);   
         }
     }
 }
